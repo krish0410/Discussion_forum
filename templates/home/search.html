@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Search Results
+{% endblock title %}
+
+{% block blogactive %} active {% endblock blogactive %}
+
+{% block body %}
+<div class="container my-4">
+    <h1>Search Results... !</h1>
+    {% if allPosts|length < 1 %}
+    <div class="card-section"><p aria-level="3" role="heading" style="padding-top:.33em">
+        Your search - <span><b>"{{query}}"</b></span>
+        - did not match any documents.</p>
+        <p style="margin-top:1em">Suggestions:</p>
+        <ul style="margin-left:1.3em;margin-bottom:2em">
+            <li>Make sure that all words are spelled correctly.</li>
+            <li>Try different keywords.</li>
+            <li>Try more general keywords.</li>
+        </ul>
+    </div>
+    {% endif %}
+    {% for post in allPosts %}
+    <div class="card mb-3 my-4 w-70 p-3">
+        <div class="row no-gutters">
+            <div class="col-md-8">
+                <div class="card-body">
+
+                    <h3 class="card-title">{{post.title}}</h3>
+                    <p class="card-text">{{post.content | truncatechars:300}}</p>
+                    <strong class="d-inline-block mb-2 text-primary"> Author : {{post.author}}</strong>
+                    <p class="card-text"><small class="text-muted">Last updated : {{post.datestamp}}</small></p>
+                </div>
+            </div>
+        </div>
+        <div class="mx-3">
+            <a href="/blog/{{post.slug}}" role="button" class="btn btn-primary">Continue Reading</a>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+{% endblock body %}

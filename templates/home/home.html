@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home
+{% endblock title %}
+
+{% block homeactive %} active {% endblock homeactive %}
+
+{% block body %}
+
+<style type="text/css">
+    .jumbotron {
+      padding: 4rem 2rem;
+      margin-bottom: 2rem;
+      background-color: var(--bs-light);
+      border-radius: .3rem;
+    }
+
+
+
+</style>
+
+<div class="h-100 p-5 text-white bg-dark ">
+    <div class="container text-center">
+        <h1>WELCOME TO <b>LETS DISCUSS</b></h1>
+        <p>Find Solution to Your Queries Here!!</p>
+    </div>
+    <a class="btn btn-outline-light" href="/blog">Forum</a>
+</div>
+
+<div class="container my-5">
+    <h1>Open a Discussion!!</h1>
+    <form action="/blog/postQuery/" method="post" my-5>{% csrf_token %}
+    <div class="mb-3 my-4">
+        <label for="title" class="form-label"><h3>Heading</h3> </label>
+        <input type="text" class="form-control" id="title" name="title" placeholder="Enter Query in brief!!">
+    </div>
+    <div class="mb-3">
+        <label for="content" class="form-label"><h3>Query </h3></label>
+        <input type="text" class="form-control" name="content" id="content" placeholder="Enter Query in Detail!!">
+    </div>
+    {% if user.is_authenticated %}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    {% else %}
+        <p>Login/SignUp to Open Discussion</p>
+        <button type="submit" class="btn btn-primary" disabled>Submit</button>
+    {% endif %}
+    </form>
+
+
+</div>
+{% endblock body %}

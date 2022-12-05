@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %} BlogHome {% endblock title %}
+{% block blogactive %} active {% endblock blogactive %}
+{% block js %}
+<script>
+    previews = document.getElementsByClassName('preview');
+    Array.from(previews).forEach((element)=>{
+        element.innerHTML = element.innerText;
+    })
+</script>
+{% endblock js %}
+
+{% block body %}
+<div class="container my-4">
+    <div class="p-3 mb-2 bg-primary text-white text-center"><h4>ARTICLES AND DISCUSSION</h4></div>
+    {% for post in allPosts %}
+    <div class="card mb-3 my-4 w-70 p-3">
+        <div class="row no-gutters">
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h3 class="card-title"><a class="text-dark" href="/blog/{{post.slug}}">{{post.title}}</a></h3>
+                    <p class="card-text"><div class="preview">{{post.content|safe| truncatechars:300}}</div></p>
+                    <strong class="d-inline-block mb-2 text-primary"> Author : {{post.author}}</strong>
+                    <p class="card-text"><small class="text-muted">Last updated : {{post.datestamp}}</small></p>
+                </div>
+            </div>
+        </div>
+        <div class="mx-3">
+            <a href="/blog/{{post.slug}}" role="button" class="btn btn-primary">Continue Reading</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</br>
+</br>
+{% endblock body %}
